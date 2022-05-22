@@ -14,7 +14,11 @@ fn my_macro2(attr: pm2::TokenStream, item: pm2::TokenStream) -> pm2::TokenStream
     require_real_paths(attr);
     require_real_paths(item.clone());
 
+    // cargo build fails for this result:
     quote!(#[cfg(test)] #[test] #item)
+
+    // cargo build works for this result:
+    // quote!(#[test] #item)
 }
 
 fn require_real_paths(stream: pm2::TokenStream) {
